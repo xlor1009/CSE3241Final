@@ -53,7 +53,7 @@ encountered and how they were resolved or not resolved.
 This assignment is worth 20% of your grade. Since this is a group project, work should be
 divided among group members evenly. Members not contributing to the group project will get
 lower scores.
-### Meeting Requirements 65%
-### User Friendliness 10%
-### Creativity 10%
-### Installable 15%
+* Meeting Requirements 65%
+* User Friendliness 10%
+* Creativity 10%
+* Installable 15%
