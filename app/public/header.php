@@ -2,10 +2,9 @@
 	echo"
     <nav>
             <ul>
-        <li><a href=\"#\" class=\"secondary\">…</a></li>
+            <h1>Wonderland Parking</h1>
             </ul>
             <ul>
-        <li><strong>Brand</strong></li>
            </ul>
            <ul>
         <li><a href=\"#\" class=\"secondary\">…</a></li>

@@ -1,4 +1,3 @@
-<a href="/Users/aminmohammed/Documents/GitHub/CSE3241Final/app/config/style.php"></a>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,9 +11,26 @@
     <title>Pico Website</title>
   </head>
   <body>
-    <?php include "header.php"; ?>
-    <div class="container">
-      <h1>Articles Worth Reading...</h1>
-    </div>
+    <h1 align="center">
+        <strong>Wonderland Parking</strong>
+    </h1>
+  <main class="container">
+    <article class="grid">
+      <div>
+        <h1>Find Reservations</h1>
+        <?php include "reservationSearch.php"; ?>
+      </div>
+    </article> 
+    <article class="grid">
+    <?php include "reserve.php"; ?>
+    </article>
+    <article class="grid">
+      <div>
+        <h1>Admin Login</h1>
+        <?php include "adminLogin.php"; ?>
+      </div>
+    </article>
+    
+  </main>
   </body>
 </html>
