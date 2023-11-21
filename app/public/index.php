@@ -18,8 +18,8 @@
           <?php include "reservationSearch.php"; ?>
         </div>
       </article> 
-      <article class="grid">
-      <?php include "reserve.php"; ?>
+      <article class="grid">  
+      <h1><a href="reservepage.php">Reserve</a></h1>
       </article>
       <article class="grid">
         <div>
