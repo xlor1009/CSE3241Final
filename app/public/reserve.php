@@ -12,7 +12,7 @@
       $result = $conn->query($isevent);
       If ($result->num_rows >0) {
         $sql1 = "SELECT zone_id,count(zone_id) as numOfZones FROM reservations WHERE reservation_date = '{$_POST["Selectdate"]}' Group By zone_id";
-      $sql = "SELECT zones.zone_id,rate,numOfZones,total_spots from zones left join ($sql1) as num on zones.zone_id=num.zone_id where total_spots>num.numOfZones or num.numOfZones is NULL";
+      $sql = "SELECT zones.zone_id,rate,numOfZones,total_spots from zones left join ($sql1) as num on zones.zone_id=num.zone_id where (total_spots>num.numOfZones and total_spots>0) or (num.numOfZones is NULL and total_spots>0)";
       $result = $conn->query($sql);
       If (!$result) die($conn->error);
       If ($result) {
