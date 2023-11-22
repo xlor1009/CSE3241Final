@@ -2,8 +2,7 @@
       <p align="center">
         <li>
        
-          <strong>Wonderland Parking</strong></a>
-        
+          <strong><a href="index.php">Wonderland Parking</a></strong>
         </li>
       </p>
     </nav>
