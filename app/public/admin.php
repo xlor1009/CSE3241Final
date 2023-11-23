@@ -13,6 +13,7 @@
   <body>
     <form action="" method="post">
         Enter Date: <input type="date" name="Selectdate"><br>
+        <input type="submit">
     </form>
     <?php 
         

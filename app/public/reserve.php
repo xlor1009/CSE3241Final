@@ -6,8 +6,9 @@
   <input type="submit">
 </form>
 <?php   
-    if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["Selectdate"] != "") { 
-      
+    if($_SERVER["REQUEST_METHOD"] == "POST" ){
+      if(isset($_POST["Selectdate"]) && $_POST["Selectdate"] != "") { 
+        $date = $_POST["Selectdate"];
         include "sql.php";
         $isevent = "SELECT event_id from events where event_date = '{$_POST["Selectdate"]}'";
         $result = $conn->query($isevent);
@@ -38,9 +39,16 @@
               <td><?php echo $row['zone_id'];?></td>
               <td><?php echo $row['total_spots']-$row['numOfZones'];?></td>
               <td><?php echo $row['rate'];?></td>
-              <td><button class="black" data-target="reserve-modal" 
-                  onClick="toggleModal(event)">Reserve</button></td>
-            </tr>
+              <td> <form method="post">  <input type="hidden" name="zone_id" value="<?php echo $row['zone_id']; ?>">
+                <input type="hidden" name="available_spots" value="<?php echo $row['total_spots'] - $row['numOfZones']; ?>">
+                <input type="hidden" name="rate" value="<?php echo $row['rate']; ?>">
+                <input type="hidden" name="d" value="<?php echo $date; ?>">
+                <button type="submit" name="Reserve">Reserve</button></form>
+              </td>
+              </tr>
+             
+                
+           
               <?php    
           }
           }
@@ -61,4 +69,22 @@
         echo "No Event This Day";
       } 
   }
+}
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  if(isset($_POST['Reserve'])) { 
+   ?><strong>Enter information below to reserve</strong>
+   <form action="" method="post">
+        <input type="hidden" name="zone_id" value="<?php echo $_POST['zone_id']; ?>">
+        <input type="hidden" name="rate" value="<?php echo $_POST['rate']; ?>">
+        <input type="hidden" name="d" value="<?php echo $_POST['d']; ?>">
+       Name: <input type="text" name="Name"><br>
+       Phone Number: <input type="text" name="Phone"><br>
+     <input type="submit">
+   </form>
+<?php   
+  
+  }
+  }
+ include "reservemaker.php";
+
 ?>
