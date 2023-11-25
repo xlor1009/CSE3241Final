@@ -1,9 +1,11 @@
 <?php
-if(isset($_POST["d"]) && isset($_POST["zone_id"]) && isset($_POST["rate"])){
+if(isset($_POST["event_id"]) &&isset($_POST["venue_id"]) &&isset($_POST["d"]) && isset($_POST["zone_id"]) && isset($_POST["rate"])){
  $date= $_POST['d'];
  $zone_id = $_POST['zone_id'];
- $rate = $_POST['rate'];}
-
+ $rate = $_POST['rate'];
+ $venue_id  = $_POST['venue_id'];
+ $event_id  = $_POST['event_id'];
+}
 if($_SERVER["REQUEST_METHOD"] == "POST" ){   
     if (isset($_POST["Name"]) && isset($_POST["Phone"])){
         if($_POST["Name"] != "" && $_POST["Phone"] != "") {
@@ -14,7 +16,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" ){
                 if (!$result) die($conn->error);
                 if ($result) {
                     if ($result->num_rows ==0){
-                        $sql1 = "INSERT INTO users values(0,'j','a','{$_POST["Phone"]}')";
+                        $sql1 = "INSERT INTO users values(0,'{$_POST["Name"]}','{$_POST["Phone"]}')";
                         $result = $conn->query($sql1);
                         $sql1 = "SELECT cellphone_number,user_id From users where cellphone_number='{$_POST["Phone"]}'";
                         $result = $conn->query($sql1);
@@ -29,13 +31,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST" ){
                         }
                     }
                 }   
-                $sql = "INSERT INTO reservations values(0,($user_num),($zone_id),1,'$date',($rate),'c')";
+                $sql = "INSERT INTO reservations values(0,($user_num),($zone_id),($event_id),'$date',($rate),False)";
                 $result = $conn->query($sql);
                 if (!$result) die($conn->error);
                 else{
                     echo "Success!\n";
                 }
-                $sql = "SELECT confirmation_number,reservation_id FROM reservations where user_id=($user_num) order by reservation_id DESC LIMIT 1";
+                $sql = "SELECT confirmation_number FROM reservations where user_id=($user_num) order by confirmation_number DESC LIMIT 1";
                 $result = $conn->query($sql);
                 $con_num = NULL;
                 if ($result) {

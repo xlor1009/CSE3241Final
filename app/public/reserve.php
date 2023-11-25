@@ -10,12 +10,20 @@
       if(isset($_POST["Selectdate"]) && $_POST["Selectdate"] != "") { 
         $date = $_POST["Selectdate"];
         include "sql.php";
-        $isevent = "SELECT event_id from events where event_date = '{$_POST["Selectdate"]}'";
+        $isevent = "SELECT event_id,venue_id from events where event_date = '{$_POST["Selectdate"]}'";
         $result = $conn->query($isevent);
         if ($result->num_rows >0) {
+          while($row = $result->fetch_array()) {
+            $venue_id  = $row['venue_id'];
+            $event_id  = $row['event_id'];
+            
+          }
+          
           if($_POST["Selectdate"] > date('Y-m-d')) {
-            $sql1 = "SELECT zone_id,count(zone_id) as numOfZones FROM reservations WHERE reservation_date = '{$_POST["Selectdate"]}' Group By zone_id";
-            $sql = "SELECT zones.zone_id,rate,numOfZones,total_spots from zones left join ($sql1) as num on zones.zone_id=num.zone_id where (total_spots>num.numOfZones and total_spots>0) or (num.numOfZones is NULL and total_spots>0)";
+            $sql1 = "SELECT zone_id,count(zone_id)as numOfZones FROM reservations WHERE reservation_date = '{$_POST["Selectdate"]}'and is_cancelled = False Group By zone_id";
+            $sql = "SELECT zones.zone_id,rate,numOfZones,max_spots,miles from zones left join  ($sql1) as num on zones.zone_id=num.zone_id  join venues on venues.venue_id = ($venue_id) join distances on 
+            zones.zone_name = distances.zone_name and distances.venue_name=venues.venue_name
+            where (max_spots>num.numOfZones and max_spots>0) or (num.numOfZones is NULL and max_spots>0) ;";
             $result = $conn->query($sql);
             if (!$result) die($conn->error);
             if ($result) {
@@ -27,6 +35,7 @@
                   <th scope="col">Zone ID</th>
                   <th scope="col">Avalible Spots</th>
                   <th scope="col">Rate</th>
+                  <th scope="col">Distance</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -37,10 +46,12 @@
               ?>
               <tr>
               <td><?php echo $row['zone_id'];?></td>
-              <td><?php echo $row['total_spots']-$row['numOfZones'];?></td>
+              <td><?php echo $row['max_spots']-$row['numOfZones'];?></td>
               <td><?php echo $row['rate'];?></td>
+              <td><?php echo $row['miles'];?></td>
               <td> <form method="post">  <input type="hidden" name="zone_id" value="<?php echo $row['zone_id']; ?>">
-                <input type="hidden" name="available_spots" value="<?php echo $row['total_spots'] - $row['numOfZones']; ?>">
+                <input type="hidden" name="venue_id" value="<?php echo $venue_id; ?>">
+                <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
                 <input type="hidden" name="rate" value="<?php echo $row['rate']; ?>">
                 <input type="hidden" name="d" value="<?php echo $date; ?>">
                 <button type="submit" name="Reserve">Reserve</button></form>
@@ -49,7 +60,7 @@
              
                 
            
-              <?php    
+              <?php  
           }
           }
             Else {
@@ -75,6 +86,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
    ?><strong>Enter information below to reserve</strong>
    <form action="" method="post">
         <input type="hidden" name="zone_id" value="<?php echo $_POST['zone_id']; ?>">
+        <input type="hidden" name="event_id" value="<?php echo $_POST['event_id']; ?>">
+        <input type="hidden" name="venue_id" value="<?php echo $venue_id; ?>">
         <input type="hidden" name="rate" value="<?php echo $_POST['rate']; ?>">
         <input type="hidden" name="d" value="<?php echo $_POST['d']; ?>">
        Name: <input type="text" name="Name"><br>
