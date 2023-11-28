@@ -17,7 +17,10 @@
         <input type="submit">
     </form>
     <?php 
-        echo $_POST["Selectdate"];
+        if(isset($_POST["d"])){
+            echo $_POST["Selectdate"];
+        }
+        
         include "sql.php";
         
         if($_SERVER["REQUEST_METHOD"] == "POST") {  
