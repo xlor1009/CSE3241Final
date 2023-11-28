@@ -34,7 +34,7 @@
           
           if($_POST["Selectdate"] > date('Y-m-d')) {
             $sql1 = "SELECT zone_id,count(zone_id)as numOfZones FROM reservations WHERE reservation_date = '{$_POST["Selectdate"]}'and is_cancelled = False Group By zone_id";
-            $sql = "SELECT zones.zone_id,rate,numOfZones,max_spots,miles from zones left join  ($sql1) as num on zones.zone_id=num.zone_id  join venues on venues.venue_id = ($venue_id) join distances on 
+            $sql = "SELECT zones.zone_id,rate,numOfZones,max_spots,miles from zones left join  ($sql1) as num on zones.zone_id=num.zone_id  join venues on venues.venue_id = ($venue_id) left join distances on 
             zones.zone_name = distances.zone_name and distances.venue_name=venues.venue_name
             where (max_spots>num.numOfZones and max_spots>0) or (num.numOfZones is NULL and max_spots>0) order by miles asc;";
             $result = $conn->query($sql);
