@@ -48,8 +48,8 @@
                 <tr>
                   <th scope="col">Zone ID</th>
                   <th scope="col">Available Spots</th>
-                  <th scope="col">Rate</th>
-                  <th scope="col">Distance</th>
+                  <th scope="col">Rate($)</th>
+                  <th scope="col">Distance(mi)</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
