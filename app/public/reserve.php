@@ -10,30 +10,31 @@
       if(isset($_POST["Selectdate"]) && $_POST["Selectdate"] != "") { 
         $date = $_POST["Selectdate"];
         include "sql.php";
-        $isevent = "SELECT event_id,venue_id from events where event_date = '{$_POST["Selectdate"]}'";
+        $isevent = "SELECT event_id,venue_id,event_name from events where event_date = '{$_POST["Selectdate"]}'";
         $result = $conn->query($isevent);
         if ($result->num_rows >0) {
           while($row = $result->fetch_array()) {
             $venue_id  = $row['venue_id'];
             $event_id  = $row['event_id'];
-            
+            $event_name  = $row['event_name'];
           }
           
           if($_POST["Selectdate"] > date('Y-m-d')) {
             $sql1 = "SELECT zone_id,count(zone_id)as numOfZones FROM reservations WHERE reservation_date = '{$_POST["Selectdate"]}'and is_cancelled = False Group By zone_id";
             $sql = "SELECT zones.zone_id,rate,numOfZones,max_spots,miles from zones left join  ($sql1) as num on zones.zone_id=num.zone_id  join venues on venues.venue_id = ($venue_id) join distances on 
             zones.zone_name = distances.zone_name and distances.venue_name=venues.venue_name
-            where (max_spots>num.numOfZones and max_spots>0) or (num.numOfZones is NULL and max_spots>0) ;";
+            where (max_spots>num.numOfZones and max_spots>0) or (num.numOfZones is NULL and max_spots>0) order by miles asc;";
             $result = $conn->query($sql);
             if (!$result) die($conn->error);
             if ($result) {
             if ($result->num_rows >0) {
+              echo "Event: ",$event_name," Date: ",$date;
               ?>
               <table>
               <thead>
                 <tr>
                   <th scope="col">Zone ID</th>
-                  <th scope="col">Avalible Spots</th>
+                  <th scope="col">Available Spots</th>
                   <th scope="col">Rate</th>
                   <th scope="col">Distance</th>
                   <th scope="col"></th>
