@@ -36,7 +36,7 @@
                   <th>Zone Name</th>
                   <th>Number of Possible Spots</th>
                   <th>Available Spots</th>
-                  <th>Rate(mi)</th>
+                  <th>Rate($)</th>
                 </tr>
               </thead>
               
