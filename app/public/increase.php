@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css" />
     <?php include "header.php"; ?>
   </head>
-  <h1>Increase Parking Spots</h1>
+  <h1>Increase/Decrease Parking Spots</h1>
   <body>
     <?php 
         
