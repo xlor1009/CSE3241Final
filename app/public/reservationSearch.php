@@ -44,7 +44,6 @@
                     <th scope="col">Event</th>
                     <th scope="col">date</th>
                     <th scope="col">fee</th>
-                    <th scope="col">Cancelled(0 is False)</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -70,7 +69,6 @@
                     <td><?php echo $event_name;?></td>
                     <td><?php echo $reservation_date ;?></td> 
                     <td><?php echo $fee;?></td>
-                    <td><?php echo $is_cancelled;?></td>
                     <?php if ($is_cancelled == FALSE) {
                       
                         ?>
