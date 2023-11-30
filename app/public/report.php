@@ -25,7 +25,7 @@
         
         if($_SERVER["REQUEST_METHOD"] == "POST") {  
            
-            $sql1 = "SELECT zone_id,count(zone_id)as numOfZones,sum(fee)as Rev FROM reservations WHERE reservation_date = '{$_POST["Selectdate"]}' Group By zone_id";
+            $sql1 = "SELECT zone_id,count(zone_id)as numOfZones,sum(fee)as Rev FROM reservations WHERE reservation_date = '{$_POST["Selectdate"]}'AND is_cancelled = false Group By zone_id";
             $sql = "SELECT zones.zone_id,zone_name,rate,numOfZones,max_spots,Rev from zones left join  ($sql1) as num on zones.zone_id=num.zone_id;";
            
             $result = $conn->query($sql);

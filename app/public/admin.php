@@ -63,15 +63,21 @@
           ?>
               </tbody>
             </table>
+
+            <?php
+        }
+        ?>
+
             <h1><a href="remove.php">Remove Zone</a></h1>
             <h1><a href="add.php">Add Zone</a></h1>
             <h1><a href="increase.php">Change Parking</a></h1>
             <h1><a href="rate.php">Change Rate</a></h1>
             <h1><a href="event.php">Add Event</a></h1>
             <h1><a href="report.php">Report</a></h1>
-        <?php   
           
-          }
+        <?php
+          
+          
           
             
           
