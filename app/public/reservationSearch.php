@@ -77,6 +77,7 @@
                         <input type="hidden" name="reservation_date" value="<?php echo  $reservation_date; ?>">
                         <input type="hidden" name="fee" value="<?php echo $fee; ?>">
                         <input type="hidden" name="ConNum" value="<?php echo $confirmation_number; ?>"></input>
+                        <input type="hidden" name="PhoneNum" value="<?php echo $confirmation_number; ?>"></input>
                         <button type="submit" name="Cancel">Cancel</button></form>
                     </td>
                     <?php }
@@ -116,6 +117,7 @@
      ?><strong>Are you sure you want to cancel your reservation?</strong>
      <form action="" method="post">
         <input type="hidden" name="ConNum" value="<?php echo $_POST['ConNum']; ?>"></input>
+        <input type="hidden" name="PhoneNum" value="<?php echo $confirmation_number; ?>"></input>
         <button type="submit" name="Yes">Yes</button>
         <button type="submit" name="No">No</button>
      </form>
